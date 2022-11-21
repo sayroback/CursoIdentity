@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProyectoIdentity.Datos;
 
@@ -9,6 +10,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
      builder.Configuration.GetConnectionString("ConexionSql")
      )
   );
+
+// Servicio Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -28,6 +32,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Agregar autenticación
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
